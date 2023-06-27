@@ -1,36 +1,28 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-export default function User() {
+export default function User({uid}) {
     const [user, setUser] = useState({})
     useEffect(() => {
-        readUser("92TajfiKrSoAJ90lykrB").then((x) => {
-            setUser(x.data)
-        })
-    }, [])
+        readUser(uid).catch((e) => (console.log(e)))
+    })
 
     async function readUser(id) {
-        return axios.get(`http://localhost:3000/user/${id}`)
-            .then((x) => {
-                return x
-            })
-            .catch((e) => {
-                console.log(e);
-            })
+        axios.get(`http://localhost:3000/user/${id}`)
+            .then((x) => (setUser(x.data)))
+            .catch((e) => (console.log(e)))
     }
 
+    const {id, name, age, created, updated} = user
 
     return (
-        <>
-            <div className="app-div">
-                <p>ID: {user.id}</p>
-                <p>Name: {user.name}</p>
-                <p>Age: {user.age}</p>
-                <p>Created: {user.created}</p>
-                <p>Updated: {user.updated}</p>
-            </div>
-            {/*<button onClick={() => (getUser(user.id))}>Clicky</button>*/}
-        </>
+        <div className="user">
+            <p>ID: {id}</p>
+            <p>Name: {name}</p>
+            <p>Age: {age}</p>
+            <p>Created: {created}</p>
+            <p>Updated: {updated}</p>
+            <button onClick={() => (readUser(user.id))}>Refresh</button>
+        </div>
     )
-
 }
