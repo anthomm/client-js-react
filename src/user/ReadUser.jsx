@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-export default function User({uid}) {
+export default function ReadUser({uid}) {
     const [user, setUser] = useState({})
     useEffect(() => {
         readUser(uid).catch((e) => (console.log(e)))
@@ -23,6 +23,8 @@ export default function User({uid}) {
             <p>Created: {created}</p>
             <p>Updated: {updated}</p>
             <button onClick={() => (readUser(user.id))}>Refresh</button>
+
+            <pre style={{textAlign: "left"}}>{JSON.stringify(user, null, 2)}</pre>
         </div>
     )
 }

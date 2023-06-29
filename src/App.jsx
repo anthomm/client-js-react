@@ -1,13 +1,20 @@
 import './App.css'
-import User from "./User.jsx";
+import SearchUser from "./user/SearchUser.jsx";
 
 function App() {
 
-    return(
+
+    const s = {
+        border: "medium solid white",
+        padding: "1rem",
+        margin: "5% auto"
+    }
+
+    return (
         <>
-            <User uid={"5It3W91KfOA58JiYnbol"}/>
-            <User uid={"7TALnrc2cqd7MUq0HRo9"}/>
-            <User uid={"bRJ5U3meLjXO3P4uGToo"}/>
+            <div style={s}>
+                <SearchUser/>
+            </div>
         </>
     )
 }
