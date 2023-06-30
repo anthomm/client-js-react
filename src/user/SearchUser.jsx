@@ -24,6 +24,22 @@ export default function SearchUser() {
             })
     }
 
+    async function deleteUserBatch(batch) {
+        axios.put(`http://localhost:3000/user/delete`,
+            {
+                ids: batch
+            })
+            .then(() => (setUsers([])))
+            .catch((e) => {
+                try {
+                    setError(e.response.data.message)
+                } catch (_) {
+                    setError(e.message)
+                }
+            })
+    }
+
+
     function handleSubmit(e) {
         // Prevent the browser from reloading the page
         e.preventDefault();
@@ -48,6 +64,8 @@ export default function SearchUser() {
         textIndent: "1em hanging"
     }
 
+    const idList = users.map(x => x.id)
+
     return (
         <>
             <h1>Search Users</h1>
@@ -67,7 +85,19 @@ export default function SearchUser() {
             </form>
             {error && <p style={{color: "red"}}>{error}</p>}
             <hr/>
-            <pre style={{textAlign: "left"}}>{JSON.stringify(users, null, 2)}</pre>
+            {users.length === 0 && <p>Found: 0</p>}
+            {users.length > 0 &&
+                <>
+                    <p>Found: {users.length}</p>
+                    <pre style={{textAlign: "left"}}>{JSON.stringify(users, null, 2)}</pre>
+                </>
+            }
+            {idList.length > 0 &&
+                <>
+                    <hr/>
+                    <button onClick={() => (deleteUserBatch(idList))}>Delete</button>
+                </>
+            }
         </>
     )
 }
