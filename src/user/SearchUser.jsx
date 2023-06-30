@@ -4,6 +4,7 @@ import axios from "axios";
 export default function SearchUser() {
     const [users, setUsers] = useState([])
     const [error, setError] = useState("")
+    const [randomUser, setRandomUser] = useState({})
 
     async function searchUser(field, op, value) {
         axios.get(`http://localhost:3000/user`,
@@ -64,7 +65,7 @@ export default function SearchUser() {
         textIndent: "1em hanging"
     }
 
-    const idList = users.map(x => x.id)
+    const ids = users.map(x => x.id)
 
     return (
         <>
@@ -89,15 +90,26 @@ export default function SearchUser() {
             {users.length > 0 &&
                 <>
                     <p>Found: {users.length}</p>
-                    <pre style={{textAlign: "left"}}>{JSON.stringify(users, null, 2)}</pre>
+                    {Object.keys(randomUser).length > 0 &&
+                        <pre style={{textAlign: "left"}}>{JSON.stringify(randomUser, null, 2)}</pre>}
+                    <button onClick={() => (setRandomUser(randomElement(users)))}>Show Random User</button>
                 </>
             }
-            {idList.length > 0 &&
+            {ids.length > 0 &&
                 <>
                     <hr/>
-                    <button onClick={() => (deleteUserBatch(idList))}>Delete</button>
+                    <button onClick={() => (deleteUserBatch(ids))}>Delete</button>
                 </>
             }
         </>
     )
+}
+
+function randomElement(input) {
+
+    if (!Array.isArray(input)) {
+        return undefined
+    }
+
+    return input[Math.floor(Math.random() * input.length)];
 }
