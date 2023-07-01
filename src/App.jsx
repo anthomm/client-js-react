@@ -1,20 +1,15 @@
-import './App.css'
 import SearchUser from "./user/SearchUser.jsx";
+import Navbar from "./common/Navbar.jsx";
 
 function App() {
 
-
-    const s = {
-        border: "medium solid white",
-        padding: "1rem",
-        margin: "5% auto"
-    }
-
     return (
         <>
-            <div style={s}>
+            <Navbar/>
+            <div className="app">
                 <SearchUser/>
             </div>
+            <button>asd</button>
         </>
     )
 }
