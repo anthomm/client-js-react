@@ -20,11 +20,8 @@ const hello =
     '$R@i.~~ !     :   ~$$$$$B$$en:``\n' +
     '?MXT@Wx.~    :     ~"##*$$$$M~'
 
-
 export default function Home() {
     return (
-        <pre>
-            {hello}
-        </pre>
+        <pre>{hello}</pre>
     )
 }

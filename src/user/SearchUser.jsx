@@ -56,13 +56,13 @@ export default function SearchUser() {
     }
 
     const inputStyle = {
-        justifyContent: "space-between",
-        textAlign: "left",
-        alignItems: "center",
-        margin: "1em",
-        display: "flex",
-        flexDirection: "column",
-        textIndent: "1em hanging"
+        // justifyContent: "space-between",
+        // textAlign: "left",
+        // alignItems: "center",
+        // margin: "1em",
+        // display: "flex",
+        // flexDirection: "column",
+        // textIndent: "1em hanging"
     }
 
     const ids = users.map(x => x.id)
