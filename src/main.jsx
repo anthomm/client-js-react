@@ -16,6 +16,9 @@ const theme = createTheme({
         background: {
             default: 'rgba(0,0,0,0.8)',
         },
+        smoke: {
+            main: '#f5f5f5',
+        },
     },
 });
 

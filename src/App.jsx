@@ -9,15 +9,14 @@ import Test from "./pages/Test.jsx";
 function App() {
 
     const containerStyle = {
-        border: "1px solid green"
+        border: "1px solid red"
     }
 
     const boxStyle = {
-        border: "1px solid red",
+        border: "1px solid green",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
     }
 
     return (
