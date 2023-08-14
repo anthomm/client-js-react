@@ -26,10 +26,14 @@ export default function FirestoreSearch() {
         setQueries(nq)
     }
 
+    function keyPress(e) {
+        if (e.keyCode === 13) handleSearch(e)
+    }
+
     let queryForms = []
     for (let i = 0; i < forms; i++) {
         queryForms.push(
-            <FormControl key={`fc-${i}`} sx={formStyle}>
+            <FormControl onKeyDown={keyPress} key={`fc-${i}`} sx={formStyle}>
                 <TextField label="FIELD" variant="outlined" color="smoke" onChange={(e) => {
                     setQueryValue(i, 0, e.target.value)
                 }}/>
