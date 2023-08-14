@@ -15,6 +15,7 @@ export default function Navbar() {
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
                 <Toolbar>
+
                     <IconButton
                         size="large"
                         edge="start"
@@ -25,18 +26,22 @@ export default function Navbar() {
                         <InfoOutlined/>
                     </IconButton>
 
-                    <Typography color="inherit" variant="h6" component="div" sx={{mr: 2}}>
+                    <Typography variant="h6" component="div" sx={{mr: 2}}>
                         <NavLink exact="true" to="/">Home</NavLink>
                     </Typography>
+
                     <Typography variant="h6" component="div" sx={{mr: 2}}>
                         <NavLink to="/search">Search</NavLink>
                     </Typography>
+
                     <Typography variant="h6" component="div" sx={{mr: 2}}>
                         <NavLink to="/test">Test</NavLink>
                     </Typography>
+
                     <Button sx={{marginLeft: "auto"}} color="inherit">Logout</Button>
+
                 </Toolbar>
             </AppBar>
         </Box>
-    );
+    )
 }

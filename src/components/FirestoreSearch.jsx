@@ -13,6 +13,7 @@ export default function FirestoreSearch() {
     const [queries, setQueries] = useState([])
     const [users, setUsers] = useState([])
     const [error, setError] = useState("")
+    const [searched, setSearched] = useState(false)
     const disableDecrement = (forms < 2)
 
     function setQueryValue(x, y, val) {
@@ -55,7 +56,6 @@ export default function FirestoreSearch() {
 
     function handleSearch(e) {
         e.preventDefault()
-
         setError("")
 
         const queryStrings = []
@@ -70,6 +70,7 @@ export default function FirestoreSearch() {
                 }
             })
             .then((x) => (setUsers(x.data)))
+            .then(() => (setSearched(true)))
             .catch((e) => {
                 try {
                     setError(e.response.data.message)
@@ -79,11 +80,37 @@ export default function FirestoreSearch() {
             })
     }
 
-    const output = []
-    for (const user of users) {
-        output.push(
-            <pre style={{textAlign: "left"}}>{JSON.stringify(user, null, 1)}</pre>
-        )
+    function handleDelete(e) {
+        e.preventDefault()
+        const ids = users.map(x => x.id)
+
+        axios.put(`http://localhost:3000/user/delete`,
+            {
+                ids: ids
+            })
+            .then(() => (setUsers([])))
+            .then(() => (setSearched(false)))
+            .catch((e) => {
+                try {
+                    setError(e.response.data.message)
+                } catch (_) {
+                    setError(e.message)
+                }
+            })
+    }
+
+    function printUsers() {
+        const foo = []
+        for (let i = 0; i < users.length; i++) {
+            foo.push(
+                <pre
+                    key={`user-${i}`}
+                    style={{textAlign: "left"}}>
+                {JSON.stringify(users[i], null, 2)}
+                </pre>
+            )
+        }
+        return foo
     }
 
     return (
@@ -105,16 +132,19 @@ export default function FirestoreSearch() {
 
                 {queryForms}
 
-
             </Box>
+            {searched && error ? <Alert severity="error">{error}</Alert> : ""}
+            <Button sx={{my: 1}} onClick={handleSearch} variant="outlined" color="smoke">SEARCH</Button>
 
-            {error ? <Alert severity="error">{error}</Alert> : ""}
-            <Button onClick={handleSearch} variant="outlined" color="smoke">SEARCH</Button>
-
-            {output.length > 0
+            {searched ? <Typography>Found: {users.length}</Typography> : ""}
+            {users.length > 0
                 ? <Box component="div" sx={textBoxStyle}>
-                    {output}
+                    {printUsers()}
                 </Box>
+                : ""
+            }
+            {users.length > 0
+                ? <Button onClick={handleDelete} variant="outlined" color="smoke">DELETE</Button>
                 : ""
             }
         </>

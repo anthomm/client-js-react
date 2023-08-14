@@ -1,10 +1,10 @@
 import Navbar from "./common/Navbar.jsx";
 import {Route, Routes} from "react-router-dom";
-import SearchUser from "./user/SearchUser.jsx";
 import Home from "./pages/Home.jsx";
 import Box from "@mui/material/Box";
 import {Container} from "@mui/material";
 import Test from "./pages/Test.jsx";
+import FirestoreSearch from "./components/FirestoreSearch.jsx";
 
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
                 <Box sx={boxStyle}>
                     <Routes>
                         <Route exact path="/" element={<Home/>}/>
-                        <Route path="/search" element={<SearchUser/>}/>
+                        <Route path="/search" element={<FirestoreSearch/>}/>
                         <Route path="/test" element={<Test/>}/>
                     </Routes>
                 </Box>
